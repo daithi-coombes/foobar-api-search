@@ -18,6 +18,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
         $expected = "
             <form>
+                <input type=\"hidden\" name=\"module\" value=\"Search\">
+                <input type=\"hidden\" name=\"action\" value=\"keywords\">
                 <input type=\"text\" name=\"data[keyword]\" value=\"\">
                 <input type=\"submit\" value=\"Search\">
             </form>

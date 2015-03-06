@@ -17,8 +17,23 @@ require_once( 'bootstrap.php' );
 //end bootstrap
 
 
-//render html
-$html = View::factory()
-	->render();
+//parse module
+if ($foobar_route!='index') {
+
+    $class = '\FoobarSearch\\'.$foobar_route;
+    $method = $_GET['action'];
+    $controller = new $class();
+    (@$_GET['data']) ?
+        $data = $_GET['data'] :
+        $data = null;
+
+    $html = $controller->$method($data);
+}
+
+//default
+else {
+    $html = View::factory()
+        ->render();
+}
 
 echo $html;

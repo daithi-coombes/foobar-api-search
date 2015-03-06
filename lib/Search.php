@@ -15,8 +15,11 @@ class Search
         ;
     }
 
-    public function keywords()
+    public function keywords($keywords)
     {
-        ;
+
+    	$keyword = $keywords['keyword'];
+
+    	
     }
 }

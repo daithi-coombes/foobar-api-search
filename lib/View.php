@@ -61,6 +61,8 @@ class View
 
         return "
             <form>
+                <input type=\"hidden\" name=\"module\" value=\"Search\">
+                <input type=\"hidden\" name=\"action\" value=\"keywords\">
                 <input type=\"text\" name=\"data[keyword]\" value=\"\">
                 <input type=\"submit\" value=\"Search\">
             </form>

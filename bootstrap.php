@@ -31,7 +31,16 @@ spl_autoload_register( function($classname){
 } );
 
 
+//load config
 global $foobar_config;
 $foobar_config = Config::factory()
     ->get();
 
+
+//build route
+global $foobar_route;
+
+(@$_GET['module']) ?
+    $foobar_route = $_GET['module'] :
+    $foobar_route = 'index';
+    

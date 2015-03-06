@@ -12,8 +12,10 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testKeyword()
     {
 
-        $keyword = "Foo Bar";
+        $keywords = array(
+        	"keyword" => "Foo Bar"
+        );
  
-        $res = $this->obj->keywords($keyword);
+        $res = $this->obj->keywords($keywords);
     }
 }
