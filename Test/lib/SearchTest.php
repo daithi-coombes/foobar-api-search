@@ -36,5 +36,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
         $res = $this->obj->thread($params);
 
+        $this->assertObjectHasAttribute('total', $res);
     }
 }

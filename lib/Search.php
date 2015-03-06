@@ -70,4 +70,39 @@ class Search
             'page'       => $page
         );
     }
+
+    /**
+     * Search for a thread by id
+     * 
+     * @param array $params An array[id] => int
+     * @return stdClass Returns object with results & total
+     */
+    public function thread(array $params)
+    {
+
+        $config = \FoobarSearch\Config::factory();
+
+        //make api call
+        $res = \FoobarSearch\API::factory($config)
+            ->get(array(
+                'post',
+                'threadid',
+                $params['id']
+        ));
+        $results = array();
+
+        foreach ($res->body as $post_id=>$post) {
+
+            $results[] = array(
+                'title'    => $post->thread_title,
+                'username' => $post->username,
+                'pagetext' => $post->pagetext
+            );
+        }
+
+        return (object) array(
+            'total' => count($results),
+            'results' => $results
+        );
+    }
 }

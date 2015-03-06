@@ -69,6 +69,7 @@ class API
             'Accept: application/json'
         );
 
+        //make request
         $this->ch = curl_init();
         curl_setopt_array($this->ch, array(
             CURLOPT_URL                 => $url,
@@ -76,8 +77,14 @@ class API
             CURLOPT_RETURNTRANSFER      => 1
         ));
         $res = curl_exec($this->ch);
+        $result = $this->parseCurlResponse($res);
 
-        return $this->parseCurlResponse($res);
+        //handle errors
+        if (@$result->body->error) {
+            throw new \Exception($result->body->error);
+        }
+
+        return $result;
     }
 
     /**
