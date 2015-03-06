@@ -13,7 +13,6 @@ namespace FoobarSearch;
 
 //bootstrap
 require_once( 'bootstrap.php' );
-
 //end bootstrap
 
 
