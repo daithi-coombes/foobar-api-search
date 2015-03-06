@@ -16,6 +16,8 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         	"keyword" => "Foo Bar"
         );
  
+        //POST: $endpoint/search/
+        //GET: $endpoint/search/keywords/$query/$page
         $res = $this->obj->keywords($keywords);
     }
 }
