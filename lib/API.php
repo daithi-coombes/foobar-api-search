@@ -7,6 +7,9 @@
  */
 namespace FoobarSearch;
 
+/**
+ * API Class.
+ */
 class API
 {
 
