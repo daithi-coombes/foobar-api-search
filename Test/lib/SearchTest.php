@@ -23,6 +23,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
  
         $res = $this->obj->keyword($params);
 
-        $this->assertObjectHasAttribute('numFound', $res->body->response);
+        $this->assertEquals($res->page, 1);
     }
 }
