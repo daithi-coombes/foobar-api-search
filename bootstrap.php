@@ -34,3 +34,4 @@ spl_autoload_register( function($classname){
 global $foobar_config;
 $foobar_config = Config::factory()
     ->get();
+

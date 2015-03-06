@@ -16,7 +16,15 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testIndex()
     {
 
-        $html = $this->obj->render();
+        $expected = "
+            <form>
+                <input type=\"text\" name=\"data[keyword]\" value=\"\">
+                <input type=\"submit\" value=\"Search\">
+            </form>
+        ";
+        $actual = $this->obj->render();
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testResults()
@@ -24,6 +32,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
         $mock_results = "";
 
-        $html = $this->obj->render($mock_results);
+        $html = $this->obj->render("search", $mock_results);
     }
 }

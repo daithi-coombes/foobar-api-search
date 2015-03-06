@@ -1,5 +1,6 @@
 <?php
 namespace FoobarSearch;
+use FoobarSearch;
 
 /**
  * Sample sprite/task for senior dev position.
@@ -16,7 +17,8 @@ require_once( 'bootstrap.php' );
 //end bootstrap
 
 
-//route
+//render html
+$html = View::factory()
+	->render();
 
-
-//render
+echo $html;
