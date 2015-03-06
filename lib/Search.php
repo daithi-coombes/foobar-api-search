@@ -15,11 +15,21 @@ class Search
         ;
     }
 
-    public function keywords($keywords)
+    public function keyword(array $params)
     {
 
-    	$keyword = $keywords['keyword'];
+    	$keyword = $params['keyword'];
+    	$page = $params['page'];
+    	$config = \FoobarSearch\Config::factory();
 
-    	
+    	$res = \FoobarSearch\API::factory($config)
+    		->get(array(
+	            'search',
+	            'keywords',
+	            $keyword,
+	            $page
+        ));
+
+    	return $res;
     }
 }

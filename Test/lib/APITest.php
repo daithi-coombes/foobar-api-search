@@ -7,7 +7,7 @@ class APITest extends \PHPUnit_Framework_TestCase
     function setUp(){
 
         $this->config = \FoobarSearch\Config::factory();
-        $this->obj = new \FoobarSearch\API();
+        $this->obj = \FoobarSearch\API::factory($this->config);
     }
 
     /**
@@ -26,9 +26,12 @@ class APITest extends \PHPUnit_Framework_TestCase
 
         $keyword = "Foo Bar";
 
-        $res = $this->obj->get(
-            '/search/keywords/',
-            $keyword
-        );
+        $res = $this->obj->get( array(
+            'search',
+            'keywords',
+            $keyword,
+            '1'
+        ) );
+
     }
 }
