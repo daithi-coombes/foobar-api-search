@@ -21,17 +21,8 @@ class APITest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\FoobarSearch\API', $actual);
     }
 
-    public function testGet()
-    {
-
-        $keyword = "Foo Bar";
-
-        $res = $this->obj->get( array(
-            'search',
-            'keywords',
-            $keyword,
-            '1'
-        ) );
-
-    }
+    /**
+     * Covered by SearchTest::testKeyword()
+     */
+    public function get(){}
 }

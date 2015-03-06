@@ -20,14 +20,18 @@ require_once( 'bootstrap.php' );
 //parse module
 if ($foobar_route!='index') {
 
-    $class = '\FoobarSearch\\'.$foobar_route;
+    $module = $_GET['module'];
+    $class = '\FoobarSearch\\'.$module;
     $method = $_GET['action'];
     $controller = new $class();
-    (@$_GET['data']) ?
-        $data = $_GET['data'] :
-        $data = null;
 
-    $html = $controller->$method($data);
+    (@$_GET['data']) ?
+    	$data = $_GET['data'] :
+    	$data = null;
+
+    $res = $controller->$method($data);
+    $html = View::factory()
+    	->render($module, $res);
 }
 
 //default
@@ -36,4 +40,5 @@ else {
         ->render();
 }
 
-echo $html;
+//print view
+var_dump($html);

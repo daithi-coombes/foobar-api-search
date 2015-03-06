@@ -10,6 +10,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->obj = new \FoobarSearch\Search();
     }
 
+    /**
+     * @covers \FoobarSearch\API::get()
+     */
     public function testKeyword()
     {
 

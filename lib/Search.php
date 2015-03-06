@@ -19,7 +19,9 @@ class Search
     {
 
     	$keyword = $params['keyword'];
-    	$page = $params['page'];
+        (@$params['page']) ?
+    	   $page = $params['page'] :
+           $page = 1;
     	$config = \FoobarSearch\Config::factory();
 
     	$res = \FoobarSearch\API::factory($config)
