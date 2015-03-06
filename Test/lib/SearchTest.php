@@ -25,4 +25,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($res->page, 1);
     }
+
+    public function testThread()
+    {
+        
+    }
 }
