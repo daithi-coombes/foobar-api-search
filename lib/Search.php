@@ -56,6 +56,7 @@ class Search
         foreach ($docs as $doc) {
 
             $results[] = array(
+                'id'       => $doc->thread_id,
                 'title'    => $doc->thread_title,
                 'forum'    => $doc->forum_title,
                 'username' => $doc->username

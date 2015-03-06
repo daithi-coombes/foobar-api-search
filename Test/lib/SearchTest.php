@@ -28,6 +28,13 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
     public function testThread()
     {
-        
+
+        $params = array(
+            "id"    => '2057297211',
+            "page"  => 1
+        );
+
+        $res = $this->obj->thread($params);
+
     }
 }
