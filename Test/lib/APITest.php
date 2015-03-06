@@ -6,8 +6,19 @@ class APITest extends \PHPUnit_Framework_TestCase
 
     function setUp(){
 
-        $config = \FoobarSearch\Config::factory();
-        $this->obj = new \FoobarSearch\API($config);
+        $this->config = \FoobarSearch\Config::factory();
+        $this->obj = new \FoobarSearch\API();
+    }
+
+    /**
+     * @todo test exceptions
+     */
+    public function testFactory()
+    {
+
+        $actual = \FoobarSearch\API::factory($this->config);
+
+        $this->assertInstanceOf('\FoobarSearch\API', $actual);
     }
 
     public function testGet()

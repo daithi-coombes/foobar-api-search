@@ -6,6 +6,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
     function setUp(){
 
+        $this->config = new \FoobarSearch\Config();
         $this->obj = new \FoobarSearch\Search();
     }
 
@@ -18,6 +19,16 @@ class SearchTest extends \PHPUnit_Framework_TestCase
  
         //POST: $endpoint/search/
         //GET: $endpoint/search/keywords/$query/$page
-        $res = $this->obj->keywords($keywords);
+
+        $res = \FoobarSearch\API::factory($this->config) 
+            ->get(
+                'search',
+                array(
+                    $keywords['keyword'],
+                    1
+                )
+            );
+
+        //$res = $this->obj->keywords($keywords);
     }
 }
