@@ -29,11 +29,16 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testResults()
+    public function testSearch()
     {
 
         $mock_results = "";
 
         $html = $this->obj->render("search", $mock_results);
+    }
+
+    public function testThread()
+    {
+        
     }
 }
