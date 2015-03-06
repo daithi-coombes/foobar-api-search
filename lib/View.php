@@ -1,13 +1,12 @@
 <?php
 /**
- * Seach class file.
- *
+ * View class file
+ * 
  * @author David Coombes <webeire@gmail.com>
  */
 namespace FoobarSearch;
 
-
-class Search
+class View
 {
 
     public function __construct()
@@ -15,8 +14,8 @@ class Search
         ;
     }
 
-    public function keywords()
+    public function render()
     {
-        ;
+
     }
 }

@@ -1,21 +1,21 @@
 <?php
 /**
- * Seach class file.
- *
+ * Makes api calls to an endpoint
+ * 
+ * @todo build class
  * @author David Coombes <webeire@gmail.com>
  */
 namespace FoobarSearch;
 
-
-class Search
+class API
 {
 
-    public function __construct()
+    function __construct()
     {
         ;
     }
 
-    public function keywords()
+    public function get()
     {
         ;
     }
