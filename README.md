@@ -1,2 +1,5 @@
-# foobar-api-search
-Some sample code for proposed contract
+Sample sprite/task for senior dev position.
+
+This is a sample task to show coding methodologies. PEAR coding standard is
+to be used.
+ 
