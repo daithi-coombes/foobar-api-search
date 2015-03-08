@@ -136,14 +136,16 @@ class View
     protected function _IndexIndex()
     {
 
-        return "
+        return $this->getHead()
+            . $this->getHeader()
+            . "
             <form>
                 <input type=\"hidden\" name=\"module\" value=\"Search\">
                 <input type=\"hidden\" name=\"action\" value=\"keyword\">
                 <input type=\"text\" name=\"data[keyword]\" value=\"\">
                 <input type=\"submit\" value=\"Search\">
-            </form>
-        ";
+            </form>"
+            . $this->getFooter();
     }
 
     /**
