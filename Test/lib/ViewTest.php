@@ -9,6 +9,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->obj = new \FoobarSearch\View();
     }
 
+    /**
+     * @todo finish this test.
+     */
     public function testGetFooter()
     {
 
