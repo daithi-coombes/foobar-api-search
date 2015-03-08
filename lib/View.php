@@ -28,7 +28,7 @@ class View
     }
 
     /**
-     * Factory method
+     * Factory method for chaining.
      *
      * @return \FoobarSearch\View
      */
@@ -36,6 +36,47 @@ class View
     {
 
         return new View();
+    }
+
+    /**
+     * Returns the HTML5 head and body tags
+     *
+     * @param string $title The page title
+     * @return string Returns the resulting html
+     */
+    public function getHead($title='FoobarSearch')
+    {
+        return "<!doctype html>
+        <html lang=\"en\">
+            <head>
+                <meta charset=\"utf-8\"/>
+                <title>{$title}</title>
+                <meta name=\"description\" content=\"sample code for interview\"/>
+                <meta name=\"author\" content=\"Daithi Coombes\"/>
+            </head>
+            <body>
+        ";
+    }
+
+    /**
+     * Returns the page header.
+     *
+     * @param string $title The header title for h1 tags.
+     * @param array $links An array of link_text=>url pairs for header menu
+     * @return string Returns the resulting html
+     */
+    public function getHeader($title='FoobarSearch', $links=array())
+    {
+
+        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|";
+        foreach ($links as $text=>$url) {
+            $html .= "|<a href=\"{$url}\">{$text}</a>|";
+        }
+
+        $html .= "<hr/>
+            <h1>{$title}</h1>";
+
+        return $html;
     }
 
     /**
@@ -103,12 +144,10 @@ class View
     protected function _SearchKeyword()
     {
 
-        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
-            <hr/>
-            <h1>FoobarSearch Results</h1>
-            <h3>Total {$this->data['total']}</h3>
-            <ul>
-        ";
+        $html = $this->getHead('FoobarSearch Results')
+            . $this->getHeader('FoobarSearch Results')
+            . "<h3>Total {$this->data['total']}</h3>
+            <ul>";
 
         foreach ($this->data['results'] as $result) {
 
@@ -132,11 +171,11 @@ class View
     {
 
         //header
-        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
-            |<a href=\"javascript:history.back()\">back to results</a>|
-            <hr/>
-            <h1>FoobarSearch Thread</h1>
-            <h2>{$this->data['title']}</h2>
+        $html = $this->getHead('FoobarSearch Thread')
+            . $this->getHeader('FoobarSearch Thread', array(
+                'back to results' => 'javascript:history.back()'
+            ))
+            ."<h2>{$this->data['title']}</h2>
             <h3>Total {$this->data['total']}</h3>
             <ul>
         ";

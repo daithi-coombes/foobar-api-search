@@ -9,22 +9,39 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->obj = new \FoobarSearch\View();
     }
 
-    public function testBody()
+    public function testGetFooter()
     {
 
-        $actual = $this->obj->getBody();
-        $expected = "";
+        //$actual = $this->obj->getFooter();
+        //$expected = "";
 
-        $this->assertEquals($expected, $actual);
+        //$this->assertEquals($expected, $actual);
     }
 
-    public function testHead()
+    /**
+     * @todo finish this test.
+     */
+    public function testGetHead()
     {
 
-        $actual = $this->obj->getHead();
+        $actual = $this->obj->getHead('Dummy test title');
         $expected = "";
 
-        $this->assertEquals($expected, $actual);
+        //$this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @todo finish this test.
+     */
+    public function testGetHeader()
+    {
+
+        $actual = $this->obj->getHeader('Dummy test title', array(
+            'link1' => 'http://example.com'
+        ));
+        $expected = "";
+
+        //$this->assertEquals($expected, $actual);
     }
 
     /**
