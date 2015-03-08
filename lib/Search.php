@@ -23,7 +23,7 @@ class Search
 
     /**
      * Make a keyword search.
-     * 
+     *
      * @param array $param Associative array with keyword/page values.
      * @return stdClass
      */
@@ -63,7 +63,7 @@ class Search
             );
         }
 
-    	return (object) array(
+    	return array(
             'total'      => $total,
             'page_count' => count($docs),
             'results'    => $results,
@@ -73,7 +73,7 @@ class Search
 
     /**
      * Search for a thread by id
-     * 
+     *
      * @param array $params An array[id] => int
      * @return stdClass Returns object with results & total
      */

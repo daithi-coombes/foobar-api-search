@@ -6,16 +6,16 @@ use FoobarSearch;
 define( 'FOOBAR_DEBUG', true );
 define( 'FOOBAR_DIR', dirname(__FILE__) );
 
-if( defined( 'FOOBAR_DEBUG' ) )
+if (defined('FOOBAR_DEBUG'))
 {
     error_reporting( E_ALL );
-    ini_set( 'display_errors', 'on' );
+    ini_set('display_errors', 'on');
 }
 
 //autoloading vendor
-if( !file_exists( FOOBAR_DIR . '/vendor/autoload.php' ) )
-    die( 'Please install with `composer install`' );
-require( 'vendor/autoload.php' );
+if (!file_exists( FOOBAR_DIR . '/vendor/autoload.php'))
+    die ('Please install with `composer install`');
+require ('vendor/autoload.php');
 
 //autoload library
 spl_autoload_register( function($classname){
@@ -36,11 +36,17 @@ global $foobar_config;
 $foobar_config = Config::factory()
     ->get();
 
+define("FOOBAR_BASE_URL", $foobar_config['baseURL']);
 
 //build route
 global $foobar_route;
-
-(@$_GET['module']) ?
-    $foobar_route = $_GET['module'] :
-    $foobar_route = 'index';
-    
+$foobar_route = (object) array(
+    'module' => 'index',
+    'action' => 'index'
+);
+if (isset($_GET['module'])) {
+    $foobar_route->module = $_GET['module'];
+}
+if (isset($_GET['action'])) {
+    $foobar_route->action = $_GET['action'];
+}

@@ -4,10 +4,10 @@ use FoobarSearch;
 
 /**
  * Sample sprite/task for senior dev position.
- * 
+ *
  * This is a sample task to show coding methodologies. PEAR coding standard is
  * to be used.
- * 
+ *
  * @author David Coombes <webeire@gmail.com>
  */
 
@@ -18,27 +18,30 @@ require_once( 'bootstrap.php' );
 
 
 //parse module
-if ($foobar_route!='index') {
+if ($foobar_route->module!='index') {
 
-    $module = $_GET['module'];
-    $class = '\FoobarSearch\\'.$module;
-    $method = $_GET['action'];
+    //construct controller
+    $class = '\FoobarSearch\\'.$foobar_route->module;
+    $method = $foobar_route->action;
     $controller = new $class();
 
-    (@$_GET['data']) ?
+    //call action method
+    (isset($_GET['data'])) ?
     	$data = $_GET['data'] :
     	$data = null;
+    $result = $controller->$method($data);
 
-    $res = $controller->$method($data);
+    //render view
     $html = View::factory()
-    	->render($module, $res);
+        ->setData($result)
+    	->render($foobar_route);
 }
 
 //default
 else {
     $html = View::factory()
-        ->render();
+        ->render($foobar_route);
 }
 
 //print view
-var_dump($html);
+echo $html;
