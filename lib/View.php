@@ -150,10 +150,10 @@ class View
                 'strictMode' => false,
                 'escapeHtml' => true
             ));
-            $decode->defaults();    //enable all fitlers
+            $decoda->defaults();    //enable all fitlers
 
             /**
-             * @deprecated Use only some filters
+             * @deprecated Use only some filters?
              */
             //$decoda->addFilter(new \Decoda\Filter\UrlFilter())
                 //->addFilter(new \Decoda\Filter\EmailFilter());
