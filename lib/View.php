@@ -80,6 +80,17 @@ class View
     }
 
     /**
+     * Returns the footer and closing html tag
+     *
+     * @return string Returns the footer html.
+     */
+    public function getFooter(){
+
+        return "    </body>
+        </html>";
+    }
+
+    /**
      * Render the html for displaying
      *
      * @param string $route The route.
@@ -96,7 +107,8 @@ class View
 
         //call method
         if (method_exists($this, $method)) {
-            return $this->{$method}();
+            return $this->{$method}()
+                .$this->getFooter();
         }
         else {
             throw new \Exception('No view method: {$method} for module: '.$module);
