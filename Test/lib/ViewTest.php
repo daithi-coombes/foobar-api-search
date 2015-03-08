@@ -9,6 +9,24 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->obj = new \FoobarSearch\View();
     }
 
+    public function testBody()
+    {
+
+        $actual = $this->obj->getBody();
+        $expected = "";
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testHead()
+    {
+
+        $actual = $this->obj->getHead();
+        $expected = "";
+
+        $this->assertEquals($expected, $actual);
+    }
+
     /**
      * Tests form is displayed
      * @covers \FoobarSearch\View::render()
