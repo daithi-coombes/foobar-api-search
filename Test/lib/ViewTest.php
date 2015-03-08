@@ -70,8 +70,24 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->render($route);
     }
 
+    /**
+     * @todo complete this test
+     */
     public function testThread()
     {
 
+        $route = (object) array(
+            'module' => 'Search',
+            'action' => 'Thread'
+        );
+        $mock_data = array(
+            'title' => 'Foo Bar',
+            'total' => '2',
+            'results' => array()
+        );
+
+        $html = $this->obj
+            ->setData($mock_data)
+            ->render($route);
     }
 }
