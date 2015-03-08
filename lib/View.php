@@ -28,7 +28,7 @@ class View
     }
 
     /**
-     * Factory method
+     * Factory method for chaining.
      *
      * @return \FoobarSearch\View
      */
@@ -36,6 +36,58 @@ class View
     {
 
         return new View();
+    }
+
+    /**
+     * Returns the HTML5 head and body tags
+     *
+     * @param string $title The page title
+     * @return string Returns the resulting html
+     */
+    public function getHead($title='FoobarSearch')
+    {
+        return "<!doctype html>
+        <html lang=\"en\">
+            <head>
+                <meta charset=\"utf-8\"/>
+                <title>{$title}</title>
+                <meta name=\"description\" content=\"sample code for interview\"/>
+                <meta name=\"author\" content=\"Daithi Coombes\"/>
+            </head>
+            <body>
+        ";
+    }
+
+    /**
+     * Returns the page header.
+     *
+     * @param string $title The header title for h1 tags.
+     * @param array $links An array of link_text=>url pairs for header menu
+     * @return string Returns the resulting html
+     */
+    public function getHeader($title='FoobarSearch', $links=array())
+    {
+
+        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|";
+        foreach ($links as $text=>$url) {
+            $html .= "|<a href=\"{$url}\">{$text}</a>|";
+        }
+
+        $html .= "<hr/>
+            <h1>{$title}</h1>";
+
+        return $html;
+    }
+
+    /**
+     * Returns the footer and closing html tag
+     *
+     * @return string Returns the footer html.
+     */
+    public function getFooter(){
+
+        return "    </body>
+        </html>";
     }
 
     /**
@@ -55,7 +107,8 @@ class View
 
         //call method
         if (method_exists($this, $method)) {
-            return $this->{$method}();
+            return $this->{$method}()
+                .$this->getFooter();
         }
         else {
             throw new \Exception('No view method: {$method} for module: '.$module);
@@ -83,14 +136,16 @@ class View
     protected function _IndexIndex()
     {
 
-        return "
+        return $this->getHead()
+            . $this->getHeader()
+            . "
             <form>
                 <input type=\"hidden\" name=\"module\" value=\"Search\">
                 <input type=\"hidden\" name=\"action\" value=\"keyword\">
                 <input type=\"text\" name=\"data[keyword]\" value=\"\">
                 <input type=\"submit\" value=\"Search\">
-            </form>
-        ";
+            </form>"
+            . $this->getFooter();
     }
 
     /**
@@ -103,12 +158,10 @@ class View
     protected function _SearchKeyword()
     {
 
-        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
-            <hr/>
-            <h1>FoobarSearch Results</h1>
-            <h3>Total {$this->data['total']}</h3>
-            <ul>
-        ";
+        $html = $this->getHead('FoobarSearch Results')
+            . $this->getHeader('FoobarSearch Results')
+            . "<h3>Total {$this->data['total']}</h3>
+            <ul>";
 
         foreach ($this->data['results'] as $result) {
 
@@ -132,11 +185,11 @@ class View
     {
 
         //header
-        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
-            |<a href=\"javascript:history.back()\">back to results</a>|
-            <hr/>
-            <h1>FoobarSearch Thread</h1>
-            <h2>{$this->data['title']}</h2>
+        $html = $this->getHead('FoobarSearch Thread')
+            . $this->getHeader('FoobarSearch Thread', array(
+                'back to results' => 'javascript:history.back()'
+            ))
+            ."<h2>{$this->data['title']}</h2>
             <h3>Total {$this->data['total']}</h3>
             <ul>
         ";
@@ -146,7 +199,7 @@ class View
 
             //decode BBCode
             $decoda = new \Decoda\Decoda($result['pagetext'], array(
-                'xhtmlOutput' => true,
+                'xhtmlOutput' => false,
                 'strictMode' => false,
                 'escapeHtml' => true
             ));
