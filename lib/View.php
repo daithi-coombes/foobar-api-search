@@ -199,7 +199,7 @@ class View
 
             //decode BBCode
             $decoda = new \Decoda\Decoda($result['pagetext'], array(
-                'xhtmlOutput' => true,
+                'xhtmlOutput' => false,
                 'strictMode' => false,
                 'escapeHtml' => true
             ));
