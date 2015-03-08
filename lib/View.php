@@ -98,17 +98,16 @@ class View
      *
      * Displays the results of a search
      *
-     * @param array $data An array of search data.
      * @return string Returns the search results html
      */
     protected function _SearchKeyword()
     {
 
-        $html = "<ul>
-            |<a href=\"".FOOBAR_BASE_URL."\">home</a>|
+        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
             <hr/>
             <h1>FoobarSearch Results</h1>
             <h3>Total {$this->data['total']}</h3>
+            <ul>
         ";
 
         foreach ($this->data['results'] as $result) {
@@ -122,8 +121,52 @@ class View
             </ul>";
     }
 
+    /**
+     * Thread view.
+     *
+     * Displays a thread for the search results
+     *
+     * @return string Returns the threads html
+     */
     protected function _SearchThread()
     {
-        
+
+        //header
+        $html = "|<a href=\"".FOOBAR_BASE_URL."\">home</a>|
+            |<a href=\"javascript:history.back()\">back to results</a>|
+            <hr/>
+            <h1>FoobarSearch Thread</h1>
+            <h2>{$this->data['title']}</h2>
+            <h3>Total {$this->data['total']}</h3>
+            <ul>
+        ";
+
+        //list
+        foreach ($this->data['results'] as $result) {
+
+            //decode BBCode
+            $decoda = new \Decoda\Decoda($result['pagetext'], array(
+                'xhtmlOutput' => true,
+                'strictMode' => false,
+                'escapeHtml' => true
+            ));
+            $decode->defaults();    //enable all fitlers
+
+            /**
+             * @deprecated Use only some filters
+             */
+            //$decoda->addFilter(new \Decoda\Filter\UrlFilter())
+                //->addFilter(new \Decoda\Filter\EmailFilter());
+                //->addFilter(new \Decoda\Filter\QuoteFilter());
+
+            //build html
+            $html .= "<li>
+                <u><b>{$result['username']}</b></u>
+                <p>".$decoda->parse()."</p>
+            </li>";
+        }
+
+        return "{$html}
+            </ul>";
     }
 }

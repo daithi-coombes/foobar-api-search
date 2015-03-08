@@ -100,8 +100,9 @@ class Search
             );
         }
 
-        return (object) array(
-            'total' => count($results),
+        return array(
+            'title'   => $post->thread_title,
+            'total'   => count($results),
             'results' => $results
         );
     }
