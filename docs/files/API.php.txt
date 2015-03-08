@@ -77,9 +77,14 @@ class API
             CURLOPT_RETURNTRANSFER      => 1
         ));
         $res = curl_exec($this->ch);
-        $result = $this->parseCurlResponse($res);
+        $info = curl_getinfo($this->ch);
 
-        //handle errors
+        if ($info['http_code']!='200' || $info['http_code']!='301') {
+            //throw new \Exception('Invalid HTTP Response Code: '.$info['http_code']);
+        }
+
+        //parse result
+        $result = $this->parseCurlResponse($res);
         if (@$result->body->error) {
             throw new \Exception($result->body->error);
         }

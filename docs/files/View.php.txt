@@ -1,7 +1,7 @@
 <?php
 /**
  * View class file
- * 
+ *
  * @author David Coombes <webeire@gmail.com>
  */
 namespace FoobarSearch;
@@ -9,12 +9,15 @@ namespace FoobarSearch;
 
 /**
  * View class.
- * 
+ *
  * Views for each of the modules are added as a method. Keep the method name
  * same as the class. ie Search class will require 'search' method.
  */
 class View
 {
+
+    /** @var array An array of data from the controller::action() call */
+    protected $data=array();
 
     /**
      * constructor
@@ -26,38 +29,55 @@ class View
 
     /**
      * Factory method
-     * 
+     *
      * @return \FoobarSearch\View
      */
-    public static function factory(){
+    public static function factory()
+    {
 
         return new View();
     }
 
     /**
      * Render the html for displaying
-     * 
-     * @param string $route Default index. The module to load from.
+     *
+     * @param string $route The route.
      * @param mixed $data Optional. Data to pass to the module's method.
      * @return string Returns the required html
      */
-    public function render($module='index', $data=null)
+    public function render($route)
     {
 
-        if (method_exists($this, $module)) {
-            return $this->$module($data);
+        $method = "_{$route->module}{$route->action}";
+
+        if (method_exists($this, $method)) {
+            return $this->{$method}();
         }
         else {
-            throw new \Exception('No view method for module: '.$module);
+            throw new \Exception('No view method: {$method} for module: '.$module);
         }
     }
 
     /**
+     * Set data returned from controller::action() call
+     *
+     * @param array $data An array of data to pass to ::$method()
+     * @return \FoobarSearch\View Returns self for chaining
+     */
+    public function setData(array $data)
+    {
+
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
      * Default view
-     * 
+     *
      * @return string Returns the default search form
      */
-    protected function index(){
+    protected function _indexindex()
+    {
 
         return "
             <form>
@@ -71,15 +91,51 @@ class View
 
     /**
      * Search view.
-     * 
+     *
      * Displays the results of a search
-     * 
+     *
      * @param array $data An array of search data.
      * @return string Returns the search results html
      */
-    protected function search($data)
+    protected function _SearchKeyword()
     {
 
-        var_dump($data);
+        $_data = (object) array(
+            'total'      => "2",
+            'page_count' => '2',
+            'results'    => array(
+                array(
+                    'id'       => "1",
+                    'title'    => "Foo Bar title",
+                    'forum'    => "Fo Bar forum",
+                    'username' => "daithi"
+                ),
+                array(
+                    'id'       => "2",
+                    'title'    => "Biz Baz title",
+                    'forum'    => "That other forum",
+                    'username' => "coombesy"
+                )
+            ),
+            'page' => "1"
+        );
+
+        $html = "<ul>
+            |<a href=\"".FOOBAR_BASE_URL."\">home</a>|
+            <hr/>
+            <h1>FoobarSearch Results</h1>
+            <h3>Total {$this->data['total']}</h3>
+        ";
+
+        foreach ($this->data['results'] as $result) {
+
+            $html .= "<li>
+                <a href=\"".FOOBAR_BASE_URL."?module=Search&amp;action=thread&amp;data[id]={$result['id']}\">{$result['title']}</a>
+            </li>";
+        }
+
+        return "{$html}
+            </ul>";
     }
 }
+
