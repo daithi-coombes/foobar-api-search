@@ -48,8 +48,12 @@ class View
     public function render($route)
     {
 
+        //get method name
+        $action = ucfirst($route->action);
+        $module = ucfirst($route->module);
         $method = "_{$route->module}{$route->action}";
 
+        //call method
         if (method_exists($this, $method)) {
             return $this->{$method}();
         }
@@ -76,7 +80,7 @@ class View
      *
      * @return string Returns the default search form
      */
-    protected function _indexindex()
+    protected function _IndexIndex()
     {
 
         return "
@@ -100,26 +104,6 @@ class View
     protected function _SearchKeyword()
     {
 
-        $_data = (object) array(
-            'total'      => "2",
-            'page_count' => '2',
-            'results'    => array(
-                array(
-                    'id'       => "1",
-                    'title'    => "Foo Bar title",
-                    'forum'    => "Fo Bar forum",
-                    'username' => "daithi"
-                ),
-                array(
-                    'id'       => "2",
-                    'title'    => "Biz Baz title",
-                    'forum'    => "That other forum",
-                    'username' => "coombesy"
-                )
-            ),
-            'page' => "1"
-        );
-
         $html = "<ul>
             |<a href=\"".FOOBAR_BASE_URL."\">home</a>|
             <hr/>
@@ -136,5 +120,10 @@ class View
 
         return "{$html}
             </ul>";
+    }
+
+    protected function _SearchThread()
+    {
+        
     }
 }

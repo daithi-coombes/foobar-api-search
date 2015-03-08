@@ -20,10 +20,10 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         	"keyword"   => "Foo Bar",
             "page"      => 1
         );
- 
+
         $res = $this->obj->keyword($params);
 
-        $this->assertEquals($res->page, 1);
+        $this->assertEquals($res['page'], 1);
     }
 
     public function testThread()
